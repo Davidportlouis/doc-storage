@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
 .App-header {
   background:linear-gradient(to right, #7474bf, #348ac7);;
   min-height: 50vh;
@@ -28,7 +24,8 @@
 
 .table{
   max-width: 90%;
-  margin: 10px;
+  margin: 100px;
+  border: 2px solid black; 
 }
 
 .table th {
