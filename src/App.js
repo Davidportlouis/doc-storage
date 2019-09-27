@@ -33,20 +33,21 @@ class App extends Component {
       this.convertToBuffer(reader);
     }
   }
-  convertToBuffer = async(reader) => {
+  convertToBuffer = async (reader) => {
     const buffer = await Buffer.from(reader.result);
     this.setState({ buffer });
   }
-   onClick = async () => {
+  onClick = async () => {
     try {
       this.setState({ blockNumber: "Loading...." });
       this.setState({ gasUsed: "Loading...." });
       await web3.eth.getTransactionReceipt(this.state.transactionHash, (err, txRecipt) => {
         console.log(err, txRecipt);
-        this.setState(txRecipt);
+        if(txRecipt !== null)
+        {
+          this.setState({txRecipt,blockNumber: txRecipt.blockNumber, gasUsed: txRecipt.gasUsed });
+        }
       });
-      await this.setState({ blockNumber: this.state.txRecipt.blockNumber });
-      await this.setState({ gasUsed: this.state.txRecipt.gasUsed });
     }
     catch (error) {
       console.log(error);
@@ -61,28 +62,28 @@ class App extends Component {
     await ipfs.add(this.state.buffer, (err, ipfsHash) => {
       console.log(err, ipfsHash);
       this.setState({ ipfsHash: ipfsHash[0].hash });
-      storehash.methods.setHash(this.state.ipfsHash).send({from: accounts[0]}, (error,transactionHash) => {
-        console.log(error,transactionHash);
-        this.setState({transactionHash});
+      storehash.methods.setHash(this.state.ipfsHash).send({ from: accounts[0] }, (error, transactionHash) => {
+        console.log(error, transactionHash);
+        this.setState({ transactionHash });
       });
-      });
+    });
   }
-  render(){
-    return(
+  render() {
+    return (
       <div className="App">
         <header className="App-header">
           <h1>Tangler Technologies</h1>
         </header>
-        <hr/>
+        <hr />
         <h3>Select Document</h3>
         <form onSubmit={this.onSubmit}>
           <input
-          className="input"
+            className="input"
             type="file"
-            onChange={this.captureFile}/>
+            onChange={this.captureFile} />
           <button type="submit">Upload</button>
         </form>
-        <hr/>
+        <hr />
         <button onClick={this.onClick}>Get Transcation Details</button>
         <table className="table">
           <thead>
@@ -96,7 +97,7 @@ class App extends Component {
             <tr>
               <td>IPFS Hash</td>
               <td>{this.state.ipfsHash}</td>
-              <td><a href="https://gateway.ipfs.io/ipfs/">View File</a></td>
+              <td><a href={`https://gateway.ipfs.io/ipfs/${this.state.ipfsHash}`} target='_blank'>Show Document</a></td>
             </tr>
             <tr>
               <td>Ethereum Address</td>
@@ -105,6 +106,7 @@ class App extends Component {
             <tr>
               <td>Tx hash</td>
               <td>{this.state.transactionHash}</td>
+              <td><a href={`https://rinkeby.etherscan.io/tx/${this.state.transactionHash}`} target='_blank'>Explore Block</a></td>
             </tr>
             <tr>
               <td>Block Number</td>
