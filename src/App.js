@@ -120,6 +120,11 @@ class App extends Component {
             </tr>
           </tbody>
         </table>
+        <footer>&copy; Copyright 2019 Tangler Technologies
+            <address>
+              Visit us: <a href="http://www.tanglertechnologies.com/" target="_blank">Tangler Technologies</a>
+            </address>
+        </footer>
       </div>
     );
   }
