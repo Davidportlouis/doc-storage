@@ -73,6 +73,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Tangler Technologies</h1>
+          <h3>DocStorage</h3>
+          <h3>Reimage Decentralized storage</h3>
         </header>
         <hr />
         <h3>Select Document</h3>
@@ -84,7 +86,7 @@ class App extends Component {
           <button type="submit">Upload</button>
         </form>
         <hr />
-        <button onClick={this.onClick}>Get Transcation Details</button>
+        <button onClick={this.onClick}>Tx Details</button>
         <table className="table">
           <thead>
             <tr>
