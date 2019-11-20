@@ -1,7 +1,7 @@
 //jshint esversion:6
 
 import web3 from './web3';
-const address = '0xFa913601Fc2BDc8000Ab67Ed8e156875326a5dA8';
+const address = '0xBA95B0bFb2Ba93FE875Eb99Cedd18a4d027fe15B';
 const abi = [
 	{
 		"constant": false,
@@ -11,7 +11,7 @@ const abi = [
 				"type": "string"
 			}
 		],
-		"name": "setHash",
+		"name": "sendHash",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",

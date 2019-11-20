@@ -62,7 +62,7 @@ class App extends Component {
     await ipfs.add(this.state.buffer, (err, ipfsHash) => {
       console.log(err, ipfsHash);
       this.setState({ ipfsHash: ipfsHash[0].hash });
-      storehash.methods.setHash(this.state.ipfsHash).send({ from: accounts[0] }, (error, transactionHash) => {
+      storehash.methods.sendHash(this.state.ipfsHash).send({ from: accounts[0] }, (error, transactionHash) => {
         console.log(error, transactionHash);
         this.setState({ transactionHash });
       });
